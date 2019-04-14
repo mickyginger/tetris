@@ -14,7 +14,8 @@ module.exports = {
     rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.css/, loader: [ 'style-loader', 'css-loader' ] },
-      { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000' }
+      { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000' },
+      { test: /\.mp3$/, loader: 'file-loader' }
     ]
   },
   devServer: {

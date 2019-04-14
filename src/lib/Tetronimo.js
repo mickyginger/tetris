@@ -1,6 +1,5 @@
 class Tetronimo {
-  constructor(name, shapes, squares, boardWidth) {
-    this.interval = 0
+  constructor(name, shapes, squares, boardWidth, gameOver) {
     this.name = name
     this.shapes = shapes
     this.squares = squares
@@ -12,6 +11,7 @@ class Tetronimo {
     const start = Math.round(Math.random() * (this.boardWidth - this.shape.width))
 
     this.position = this.shape.indices.map(index => index + start)
+    if(this.position.some(index => this.squares[index].classList.contains('shape'))) return gameOver()
     this.draw()
   }
 

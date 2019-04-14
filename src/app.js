@@ -12,11 +12,12 @@ const next = document.querySelector('.next')
 const squares = []
 const nextSquares = []
 
-for(let i = 0; i < width * width * 2.4; i++) {
+for(let i = 0; i < Math.floor(width * width * 2.2); i++) {
   const square = createElement('div')
   board.appendChild(square)
   squares.push(square)
 }
+
 
 for(let i = 0; i < 16; i++) {
   const square = createElement('div')

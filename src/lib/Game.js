@@ -20,6 +20,7 @@ class Game {
     this.score = 0
     this.lines = 0
     this.level = 0
+    this.gameOver = false
     this.possibleScores = {
       1: 40,
       2: 100,
@@ -27,14 +28,19 @@ class Game {
       4: 1200
     }
 
+    this.audio = new Audio('assets/theme.mp3')
+    this.audio.loop = true
+    this.audio.play()
+
     this.handleKeydown = this.handleKeydown.bind(this)
+    this.stop = this.stop.bind(this)
 
     document.addEventListener('keydown', this.handleKeydown)
   }
 
   generateTetronimo(name, squares, width) {
     const shape = this.shapes[name](width)
-    return new Tetronimo(name, shape, squares, width)
+    return new Tetronimo(name, shape, squares, width, this.stop)
   }
 
   generateRandomTetronimo(squares, width) {
@@ -60,6 +66,7 @@ class Game {
   }
 
   animate() {
+    if(this.gameOver) return false
     this.interval = setTimeout(() => {
       this.tetronimo.moveDown()
       if(this.tetronimo.isSettled()) {
@@ -79,7 +86,9 @@ class Game {
   }
 
   stop() {
-    clearInterval(this.interval)
+    this.gameOver = true
+    this.squares[0].parentNode.classList.add('game-over')
+    clearTimeout(this.interval)
     document.removeEventListener('keydown', this.handleKeydown)
   }
 
