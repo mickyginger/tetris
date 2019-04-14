@@ -6,14 +6,13 @@ module.exports = {
   entry: './src/app.js',
   output: {
     path: path.resolve('dist'),
-    filename: 'bundle.js',
-    publicPath: '/'
+    filename: 'bundle.js'
   },
   devtool: 'source-maps',
   module: {
     rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-      { test: /\.css/, loader: [ 'style-loader', 'css-loader' ] },
+      { test: /\.css$/, loader: [ 'style-loader', 'css-loader' ] },
       { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000' },
       { test: /\.mp3$/, loader: 'file-loader' }
     ]
