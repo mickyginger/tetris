@@ -26,11 +26,11 @@ class Game {
 
     this.audio = new Audio('assets/theme.mp3')
     this.audio.loop = true
-    this.audio.play()
 
-    this.handleKeydown = this.handleKeydown.bind(this)
+    this.start = this.start.bind(this)
     this.stop = this.stop.bind(this)
 
+    this.handleKeydown = this.handleKeydown.bind(this)
     document.addEventListener('keydown', this.handleKeydown)
   }
 
@@ -46,12 +46,12 @@ class Game {
   }
 
   updateScore(amount) {
-    this.score += amount
+    this.score = amount
     this.scoreElem.innerText = this.score
   }
 
   updateLines(amount) {
-    this.lines += amount
+    this.lines = amount
     this.linesElem.innerText = this.lines
   }
 
@@ -68,24 +68,36 @@ class Game {
       if(this.tetronimo.isSettled()) {
         clearInterval(this.interval)
         this.clearLines()
-        return this.start()
+        return this.drop()
       }
       this.animate()
     }, 750 - (this.level * 50))
   }
 
-  start() {
+  drop() {
     this.tetronimo = this.generateTetronimo(this.nextTetronimo.name, this.squares, this.boardWidth)
     this.clearNext()
     this.nextTetronimo = this.generateRandomTetronimo(this.nextSquares, 4)
     this.animate()
   }
 
+  start() {
+    this.gameOver = false
+    this.audio.currentTime = 0
+    this.audio.play()
+    this.squares[0].parentNode.classList.remove('game-over')
+    this.squares.forEach(square => square.removeAttribute('class'))
+    this.updateLines(0)
+    this.updateScore(0)
+    this.updateLevel()
+    this.drop()
+  }
+
   stop() {
-    this.gameOver = true
+    this.audio.pause()
     this.squares[0].parentNode.classList.add('game-over')
+    this.gameOver = true
     clearTimeout(this.interval)
-    document.removeEventListener('keydown', this.handleKeydown)
   }
 
   clearNext() {
@@ -117,8 +129,8 @@ class Game {
     }
 
     if(completedLines) {
-      this.updateLines(completedLines)
-      this.updateScore(this.possibleScores[completedLines] * (this.level + 1))
+      this.updateLines(this.lines + completedLines)
+      this.updateScore(this.score + this.possibleScores[completedLines] * (this.level + 1))
       this.updateLevel()
     }
   }

@@ -9,6 +9,7 @@ const level = document.querySelector('.level')
 const lines = document.querySelector('.lines')
 const score = document.querySelector('.score')
 const next = document.querySelector('.next')
+const startBtn = document.querySelector('button')
 const squares = []
 const nextSquares = []
 
@@ -26,4 +27,4 @@ for(let i = 0; i < 16; i++) {
 }
 
 const game = new Game(squares, width, level, lines, score, nextSquares)
-game.start()
+startBtn.addEventListener('click', game.start)
