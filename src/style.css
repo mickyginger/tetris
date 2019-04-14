@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'Gameboy';
+    src: url('assets/gameboy.woff2') format('woff2'),
+         url('assets/gameboy.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+  font-family: 'Gameboy', monospace;
+  font-size: 20px;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+}
+
+.board {
+  width: calc(50vh + 20px);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  border-left: 5px solid;
+  border-right: 5px solid;
+  border-bottom: 5px solid;
+  border-radius: 0 0 5px 5px;
+}
+
+.panel {
+  padding: 30px;
+}
+
+.next {
+  width: calc(20vh + 10px);
+  height: calc(20vh + 10px);
+  display: flex;
+  flex-wrap: wrap;
+  border: 5px solid;
+  border-radius: 5px;
+  margin: 12px auto;
+}
+
+.board div, .next div {
+  width: 5vh;
+  height: 5vh;
+  border: 1px solid white;
+}
+
+.shape.O {
+  background-color: yellow;
+}
+
+.shape.J {
+  background-color: blue;
+}
+
+.shape.T {
+  background-color: pink;
+}
+
+.shape.I {
+  background-color: cyan;
+}
+
+.shape.L {
+  background-color: orange;
+}
+
+.shape.S {
+  background-color: green;
+}
+
+.shape.Z {
+  background-color: red;
+}
