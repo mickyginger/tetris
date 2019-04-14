@@ -1,10 +1,6 @@
 import Tetronimo from './Tetronimo'
 import { shapes } from './helpers'
 
-// Display next tetronimo
-// Display score
-// Add sounds
-
 class Game {
   constructor(squares, boardWidth, levelElem, linesElem, scoreElem, nextSquares) {
     this.squares = squares

@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   entry: './src/app.js',
@@ -13,7 +14,11 @@ module.exports = {
     rules: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
       { test: /\.css$/, loader: [ 'style-loader', 'css-loader' ] },
-      { test: /\.(woff|woff2)$/, loader: 'url-loader?prefix=font/&limit=5000' },
+      {
+        test: /\.(woff|woff2)$/,
+        loader: 'file-loader',
+        options: { name: '[name].[ext]', outputPath: 'assets/'}
+      },
       { test: /\.mp3$/, loader: 'file-loader' }
     ]
   },
@@ -30,6 +35,9 @@ module.exports = {
       template: 'src/index.html',
       filename: 'index.html',
       inject: 'body'
-    })
+    }),
+    new CopyWebpackPlugin([
+      { from: 'src/assets', to: 'assets'}
+    ])
   ]
 }
